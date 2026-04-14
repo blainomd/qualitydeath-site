@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Medical Aid in Dying: Your State | Quality Death</title>
+<meta name="description" content="Find out whether medical aid in dying is legal in your state, what the eligibility requirements are, and where to get referrals to participating physicians."/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "primary": "#436438",
+          "primary-fixed": "#c6eeb5",
+          "primary-fixed-dim": "#aad19b",
+          "primary-container": "#5b7e4e",
+          "on-primary": "#ffffff",
+          "on-primary-container": "#f8ffef",
+          "surface": "#fcf9f8",
+          "surface-container": "#f0eded",
+          "surface-container-low": "#f6f3f2",
+          "surface-container-lowest": "#ffffff",
+          "surface-container-high": "#eae7e7",
+          "surface-container-highest": "#e5e2e1",
+          "on-surface": "#1c1b1b",
+          "on-surface-variant": "#43483f",
+          "outline": "#73796e",
+          "outline-variant": "#c3c8bc",
+          "background": "#fcf9f8",
+          "on-background": "#1c1b1b",
+          "secondary": "#5f5e5e",
+          "secondary-container": "#e4e2e1",
+          "on-secondary": "#ffffff",
+          "error": "#ba1a1a",
+          "error-container": "#ffdad6",
+          "inverse-surface": "#313030",
+          "inverse-primary": "#aad19b",
+          "tertiary": "#595d5b",
+          "surface-dim": "#dcd9d9",
+          "surface-bright": "#fcf9f8",
+        },
+        fontFamily: { "headline": ["Inter"], "body": ["Inter"], "label": ["Inter"] }
+      }
+    }
+  }
+</script>
+<style>
+  body { font-family: 'Inter', sans-serif; background-color: #fcf9f8; color: #1c1b1b; min-height: 100dvh; }
+  .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; display: inline-block; line-height: 1; text-transform: none; letter-spacing: normal; word-wrap: normal; white-space: nowrap; direction: ltr; }
+  select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%2373796e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; }
+  #state-result { transition: opacity 0.25s ease, transform 0.25s ease; }
+  #state-result.hidden { opacity: 0; pointer-events: none; height: 0; overflow: hidden; }
+  #state-result.visible { opacity: 1; }
+</style>
+</head>
+<body class="bg-background text-on-surface antialiased">
+
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-[#fcf9f8]/80 backdrop-blur-xl flex items-center justify-between px-6 h-16">
+  <a href="/" class="flex items-center gap-2">
+    <span class="material-symbols-outlined text-[#6B8F5E]">spa</span>
+    <span class="text-xl font-bold tracking-tight text-[#436438]">Sage</span>
+  </a>
+  <nav class="flex items-center gap-2">
+    <a href="/maid-education" class="text-sm text-on-surface-variant hover:text-on-surface px-3 py-2">Education</a>
+    <a href="/advance-directives" class="text-sm text-on-surface-variant hover:text-on-surface px-3 py-2">Directives</a>
+  </nav>
+</header>
+
+<!-- Crisis banner — always visible -->
+<div style="background:#ffdad6;border-bottom:1px solid #f2b8b8;padding:10px 24px;text-align:center;margin-top:64px;">
+  <p style="font-size:13px;color:#93000a;margin:0;">
+    If you are in crisis or having thoughts of suicide, please call or text <strong>988</strong> (Suicide and Crisis Lifeline) immediately. Help is available 24/7.
+  </p>
+</div>
+
+<main style="max-width:640px;margin:0 auto;padding:32px 24px 80px;">
+
+  <!-- Page header -->
+  <div style="margin-bottom:32px;">
+    <h1 style="font-size:32px;font-weight:800;color:#1c1b1b;margin:0 0 12px;line-height:1.2;">Medical Aid in Dying: What's Legal in Your State</h1>
+    <p style="font-size:15px;color:#43483f;line-height:1.7;margin:0 0 16px;">Medical aid in dying (MAID) — also called death with dignity, physician-assisted death, or aid in dying — is regulated at the state level. Laws vary significantly. Select your state to see what is currently available.</p>
+    <div style="background:#f6f3f2;border-radius:12px;padding:14px 18px;display:flex;gap:12px;align-items:flex-start;">
+      <span class="material-symbols-outlined" style="color:#436438;font-size:18px;margin-top:2px;">info</span>
+      <p style="font-size:12px;color:#43483f;margin:0;line-height:1.6;"><strong>This information is educational only.</strong> Medical aid in dying is regulated at the state level. Whether you qualify is a determination only a licensed physician can make. Laws change; verify current law with the sources linked below. Consult a licensed physician and attorney in your state for personal guidance.</p>
+    </div>
+  </div>
+
+  <!-- State selector -->
+  <div style="margin-bottom:32px;">
+    <label style="display:block;font-size:14px;font-weight:600;color:#1c1b1b;margin-bottom:8px;" for="state-select">Select your state</label>
+    <select id="state-select" onchange="showState(this.value)" style="width:100%;padding:14px 40px 14px 16px;border:1.5px solid #c3c8bc;border-radius:12px;font-size:15px;color:#1c1b1b;background-color:#fff;cursor:pointer;font-family:'Inter',sans-serif;">
+      <option value="">-- Choose a state --</option>
+      <optgroup label="MAID Legal (Active)">
+        <option value="OR">Oregon</option>
+        <option value="WA">Washington</option>
+        <option value="VT">Vermont</option>
+        <option value="CA">California</option>
+        <option value="CO">Colorado</option>
+        <option value="DC">Washington DC</option>
+        <option value="HI">Hawaii</option>
+        <option value="NJ">New Jersey</option>
+        <option value="ME">Maine</option>
+        <option value="NM">New Mexico</option>
+        <option value="MT">Montana</option>
+        <option value="DE">Delaware</option>
+      </optgroup>
+      <optgroup label="MAID Legal (Effective Soon)">
+        <option value="NY">New York (effective Aug 5, 2026)</option>
+        <option value="IL">Illinois (effective Sep 12, 2026)</option>
+      </optgroup>
+      <optgroup label="Active Legislation (Not Yet Legal)">
+        <option value="MA">Massachusetts</option>
+        <option value="MN">Minnesota</option>
+        <option value="CT">Connecticut</option>
+        <option value="IN">Indiana</option>
+        <option value="MO">Missouri</option>
+        <option value="MI">Michigan</option>
+      </optgroup>
+      <optgroup label="No Active Law">
+        <option value="AL">Alabama</option>
+        <option value="AK">Alaska</option>
+        <option value="AZ">Arizona</option>
+        <option value="AR">Arkansas</option>
+        <option value="FL">Florida</option>
+        <option value="GA">Georgia</option>
+        <option value="ID">Idaho</option>
+        <option value="IA">Iowa</option>
+        <option value="KS">Kansas</option>
+        <option value="KY">Kentucky</option>
+        <option value="LA">Louisiana</option>
+        <option value="MD">Maryland</option>
+        <option value="MS">Mississippi</option>
+        <option value="NE">Nebraska</option>
+        <option value="NV">Nevada</option>
+        <option value="NH">New Hampshire</option>
+        <option value="NC">North Carolina</option>
+        <option value="ND">North Dakota</option>
+        <option value="OH">Ohio</option>
+        <option value="OK">Oklahoma</option>
+        <option value="OR_NO">Oregon (already listed above)</option>
+        <option value="PA">Pennsylvania</option>
+        <option value="RI">Rhode Island</option>
+        <option value="SC">South Carolina</option>
+        <option value="SD">South Dakota</option>
+        <option value="TN">Tennessee</option>
+        <option value="TX">Texas</option>
+        <option value="UT">Utah</option>
+        <option value="VA">Virginia</option>
+        <option value="WV">West Virginia</option>
+        <option value="WI">Wisconsin</option>
+        <option value="WY">Wyoming</option>
+      </optgroup>
+    </select>
+  </div>
+
+  <!-- Result panel -->
+  <div id="state-result" class="hidden"></div>
+
+  <!-- Always-visible referral section -->
+  <div style="margin-top:48px;border-top:1px solid #c3c8bc;padding-top:40px;">
+    <h2 style="font-size:20px;font-weight:700;color:#1c1b1b;margin:0 0 16px;">National Referral Resources</h2>
+    <p style="font-size:14px;color:#43483f;line-height:1.7;margin:0 0 20px;">This site connects you to established advocacy organizations and physician networks. We do not manage the MAID process directly and do not coordinate prescriptions.</p>
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <a href="https://compassionandchoices.org" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;gap:12px;padding:16px 18px;background:#fff;border:1px solid #c3c8bc;border-radius:12px;text-decoration:none;">
+        <span class="material-symbols-outlined" style="color:#436438;font-size:20px;">volunteer_activism</span>
+        <div>
+          <p style="font-size:14px;font-weight:600;color:#1c1b1b;margin:0 0 2px;">Compassion &amp; Choices</p>
+          <p style="font-size:12px;color:#43483f;margin:0;">National advocacy + Doc2Doc clinician referral program</p>
+        </div>
+      </a>
+      <a href="https://deathwithdignity.org" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;gap:12px;padding:16px 18px;background:#fff;border:1px solid #c3c8bc;border-radius:12px;text-decoration:none;">
+        <span class="material-symbols-outlined" style="color:#436438;font-size:20px;">balance</span>
+        <div>
+          <p style="font-size:14px;font-weight:600;color:#1c1b1b;margin:0 0 2px;">Death with Dignity National Center</p>
+          <p style="font-size:12px;color:#43483f;margin:0;">Legislative tracking, state law summaries, patient resources</p>
+        </div>
+      </a>
+      <a href="https://aadm.org" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;gap:12px;padding:16px 18px;background:#fff;border:1px solid #c3c8bc;border-radius:12px;text-decoration:none;">
+        <span class="material-symbols-outlined" style="color:#436438;font-size:20px;">stethoscope</span>
+        <div>
+          <p style="font-size:14px;font-weight:600;color:#1c1b1b;margin:0 0 2px;">Academy of Aid-in-Dying Medicine (AADM)</p>
+          <p style="font-size:12px;color:#43483f;margin:0;">1,300+ clinicians; member directory; formerly ACAMAID</p>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- Advance directives cross-link -->
+  <div style="margin-top:32px;background:#f0eded;border-radius:16px;padding:24px;">
+    <p style="font-size:14px;font-weight:600;color:#1c1b1b;margin:0 0 8px;">Advance directives are available in all 50 states</p>
+    <p style="font-size:13px;color:#43483f;line-height:1.6;margin:0 0 14px;">Regardless of where you live, you can create a living will, designate a healthcare proxy, and document your POLST preferences. These documents are legally binding in all 50 states when properly executed.</p>
+    <a href="/advance-directives" style="display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:#436438;text-decoration:none;">
+      Start your advance directive
+      <span class="material-symbols-outlined" style="font-size:16px;">arrow_forward</span>
+    </a>
+  </div>
+
+  <!-- Last updated notice -->
+  <p style="margin-top:32px;font-size:11px;color:#73796e;text-align:center;">State law information last verified April 2026. Laws change. Always verify current requirements with the sources linked above or a licensed attorney in your state.</p>
+
+</main>
+
+<script>
+const STATE_DATA = {
+  OR: {
+    status: "legal",
+    name: "Oregon",
+    law: "Death with Dignity Act",
+    effective: "October 27, 1997",
+    waitingPeriod: "15 days between oral requests; 48-hour waiver available for imminent death",
+    prognosis: "6 months or less",
+    minAge: 18,
+    residency: "No residency requirement (removed July 2023)",
+    prescribers: "Attending + consulting MD or DO; mental health evaluation if capacity is questioned",
+    selfAdmin: "Yes — patient self-ingests",
+    annualUse: "607 prescriptions, 376 deaths (2024 data, Oregon Health Authority)",
+    notes: "Oregon was the first US state to legalize MAID (1997). Oregon removed its residency requirement in July 2023 following the Gideonse v. Brown lawsuit settlement, making it accessible to patients from any state who travel to Oregon and establish a care relationship with an Oregon-licensed provider.",
+    resources: [
+      { name: "Oregon Health Authority — Death with Dignity FAQs", url: "https://www.oregon.gov/oha/ph/providerpartnerresources/evaluationresearch/deathwithdignityact/pages/faqs.aspx" },
+      { name: "Compassion & Choices — Oregon", url: "https://compassionandchoices.org/in-your-state/oregon/" }
+    ]
+  },
+  WA: {
+    status: "legal",
+    name: "Washington",
+    law: "Death with Dignity Act",
+    effective: "March 5, 2009",
+    waitingPeriod: "15 days between oral requests",
+    prognosis: "6 months or less",
+    minAge: 18,
+    residency: "Yes — must be a Washington resident",
+    prescribers: "Attending + consulting MD or DO",
+    selfAdmin: "Yes — patient self-ingests",
+    annualUse: "Approximately 350+ prescriptions annually",
+    notes: "Washington's law closely mirrors Oregon's original statute. Residency is required; non-residents cannot use Washington's MAID law even if traveling in the state.",
+    resources: [
+      { name: "Washington State Department of Health", url: "https://doh.wa.gov/you-and-your-family/illness-and-disease-z/death-dignity-act" },
+      { name: "Death with Dignity National Center — Washington", url: "https://deathwithdignity.org/states/washington/" }
+    ]
+  },
+  MT: {
+    status: "legal",
+    name: "Montana",
+    law: "Court ruling: Baxter v. Montana (Montana Supreme Court)",
+    effective: "December 31, 2009",
+    waitingPeriod: "None specified by statute — no formal protocol exists",
+    prognosis: "Terminal illness (undefined by statute)",
+    minAge: 18,
+    residency: "Implied; no clear statute",
+    prescribers: "Physician discretion; no formal statutory framework",
+    selfAdmin: "Yes",
+    annualUse: "Unknown — not reportable by statute",
+    notes: "Montana's MAID authorization comes from a Supreme Court ruling, not a statute. There is no formal protocol, reporting requirement, or regulatory framework. Physicians who participate do so with significant legal exposure. This site treats Montana as a referral state only and cannot represent that a clear, accessible MAID process exists there. Contact AADM or Compassion & Choices for physician referrals.",
+    resources: [
+      { name: "Death with Dignity National Center — Montana", url: "https://deathwithdignity.org/states/montana/" },
+      { name: "Compassion & Choices", url: "https://compassionandchoices.org" }
+    ]
+  },
+  VT: {
+    status: "legal",
+    name: "Vermont",
+    law: "Patient Choice and Control at End of Life Act",
+    effective: "May 20, 2013",
+    waitingPeriod: "15 days between oral requests",
+    prognosis: "6 months or less",
+    minAge: 18,
+    residency: "No residency requirement (removed 2023 via Bluestein v. Scott settlement)",
+    prescribers: "Attending + consulting MD or DO",
+    selfAdmin: "Yes — patient self-ingests",
+    annualUse: "Approximately 70–100 annually",
+    notes: "Vermont removed its residency requirement in 2023, making it accessible to non-residents who travel to Vermont and establish a care relationship with a Vermont-licensed provider.",
+    resources: [
+      { name: "Vermont Department of Health", url: "https://www.healthvermont.gov/patient-choice" },
+      { name: "Death with Dignity National Center — Vermont", url: "https://deathwithdignity.org/states/vermont/" }
+    ]
+  },
+  CA: {
+    status: "legal",
+    name: "California",
+    law: "End of Life Option Act",
+    effective: "June 9, 2016 (amended 2021 — waiting period reduced to 48 hours)",
+    waitingPeriod: "48 hours (reduced from 15 days by AB 2242 in 2021)",
+    prognosis: "6 months or less",
+    minAge: 18,
+    residency: "Yes — must be a California resident",
+    prescribers: "Attending + consulting MD or DO; mental health evaluation if capacity is questioned",
+    selfAdmin: "Yes — patient self-ingests",
+    annualUse: "700+ prescriptions annually",
+    notes: "California has the shortest waiting period (48 hours) of any state. State Medicaid (Medi-Cal) covers MAID medication costs for eligible patients.",
+    resources: [
+      { name: "California Department of Public Health — End of Life Option Act", url: "https://www.cdph.ca.gov/Programs/CHSI/Pages/End-of-Life-Option-Act-.aspx" },
+      { name: "Compassion & Choices — California", url: "https://compassionandchoices.org/in-your-state/california/" }
+    ]
+  },
+  CO: {
+    status: "legal",
+    name: "Colorado",
+    law: "End of Life Options Act (Proposition 106, HB16-1054) — amended by SB24-068 (effective August 7, 2024)",
+    effective: "December 16, 2016; amended August 7, 2024",
+    waitingPeriod: "7 days between oral requests (reduced from 15 days by SB24-068 in August 2024); 48-hour emergency waiver if prognosis is under 48 hours",
+    prognosis: "6 months or less",
+    minAge: 18,
+    residency: "Yes — must be a Colorado resident",
+    prescribers: "Attending MD, DO, or APRN + consulting MD, DO, or APRN (APRNs added as eligible prescribers in August 2024)",
+    selfAdmin: "Yes — ingestion only (clarified by SB24-068)",
+    annualUse: "510 prescriptions written, 313 medications dispensed, 313 deaths (2024, Colorado CDPHE Year 8 Report). Median patient age: 75.",
+    notes: "Colorado's law underwent its first amendment in August 2024, which reduced the waiting period from 15 to 7 days, added APRNs as eligible prescribers, and created a 48-hour emergency waiver. SB24-068 also added a transfer obligation: providers who decline to participate must disclose this and transfer records on request. Providers who cannot participate are not required to assist, but must not obstruct access. Colorado Medicaid covers MAID medication costs for eligible patients.",
+    resources: [
+      { name: "Colorado CDPHE — Medical Aid in Dying Annual Reports", url: "https://cdphe.colorado.gov/center-for-health-and-environmental-data/registries-and-vital-statistics/medical-aid-in-dying" },
+      { name: "Colorado SB24-068 — Bill Text", url: "https://leg.colorado.gov/bills/sb24-068" },
+      { name: "Compassion & Choices — Colorado", url: "https://compassionandchoices.org/in-your-state/colorado/" }
+    ],
+    isColorado: true
+  },
+  DC: {
+    status: "legal",
+    name: "Washington DC",
+    law: "Death with Dignity Act",
+    effective: "February 18, 2017",
+    waitingPeriod: "15 days between oral requests",
+    prognosis: "6 months or less",
+    minAge: 18,
+    residency: "Yes — must be a DC resident",
+    prescribers: "Attending + consulting MD or DO",
+    selfAdmin: "Yes — patient self-ingests",
+    annualUse: "Small numbers; approximately 10–30 annually",
+    notes: "DC's law mirrors Oregon's statute. VA Medical Centers and other federal facilities in DC cannot participate, regardless of DC law.",
+    resources: [
+      { name: "Death with Dignity National Center — DC", url: "https://deathwithdignity.org/states/washington-dc/" }
+    ]
+  },
+  HI: {
+    status: "legal",
+    name: "Hawaii",
+    law: "Our Care, Our Choice Act",
+    effective: "January 1, 2019",
+    waitingPeriod: "20 days between oral requests",
+    prognosis: "6 months or less",
+    minAge: 18,
+    residency: "Yes — must be a Hawaii resident",
+    prescribers: "Attending + consulting MD or DO; counselor referral required if mental health concerns are present",
+    selfAdmin: "Yes — patient self-ingests",
+    annualUse: "Approximately 40–60 annually",
+    notes: "Hawaii has the longest waiting period of any legal state (20 days). Hawaii's law requires a counselor referral when mental health concerns are present.",
+    resources: [
+      { name: "Hawaii State Department of Health", url: "https://health.hawaii.gov/opppd/our-care-our-choice-act/" },
+      { name: "Compassion & Choices — Hawaii", url: "https://compassionandchoices.org/in-your-state/hawaii/" }
+    ]
+  },
+  NJ: {
+    status: "legal",
+    name: "New Jersey",
+    law: "Medical Aid in Dying for the Terminally Ill Act",
+    effective: "August 1, 2019",
+    waitingPeriod: "15 days between oral requests",
+    prognosis: "6 months or less",
+    minAge: 18,
+    residency: "Yes — must be a New Jersey resident",
+    prescribers: "Attending + consulting MD or DO",
+    selfAdmin: "Yes — patient self-ingests",
+    annualUse: "100+ annually",
+    resources: [
+      { name: "New Jersey Department of Health", url: "https://www.nj.gov/health/advancedirective/aid-in-dying/" },
+      { name: "Compassion & Choices — New Jersey", url: "https://compassionandchoices.org/in-your-state/new-jersey/" }
+    ]
+  },
+  ME: {
+    status: "legal",
+    name: "Maine",
+    law: "Death with Dignity Act",
+    effective: "September 19, 2019",
+    waitingPeriod: "15 days between oral requests",
+    prognosis: "6 months or less",
+    minAge: 18,
+    residency: "Yes — must be a Maine resident",
+    prescribers: "Attending + consulting MD or DO",
+    selfAdmin: "Yes — patient self-ingests",
+    annualUse: "Approximately 20–40 annually",
+    resources: [
+      { name: "Maine CDC — Death with Dignity", url: "https://www.maine.gov/dhhs/mecdc/public-health-systems/data-research/death-with-dignity.shtml" }
+    ]
+  },
+  NM: {
+    status: "legal",
+    name: "New Mexico",
+    law: "Elizabeth Whitefield End-of-Life Options Act",
+    effective: "June 18, 2021",
+    waitingPeriod: "No mandatory waiting period (unique among legal states)",
+    prognosis: "6 months or less",
+    minAge: 18,
+    residency: "Yes — must be a New Mexico resident",
+    prescribers: "Attending MD, DO, or APRN + consulting provider",
+    selfAdmin: "Yes — patient self-ingests",
+    annualUse: "Data still emerging; law is newer",
+    notes: "New Mexico is notable for having no mandatory waiting period and for including APRNs as eligible prescribers alongside physicians.",
+    resources: [
+      { name: "New Mexico Department of Health", url: "https://www.nmhealth.org/about/erd/oeh/eol/" },
+      { name: "Compassion & Choices — New Mexico", url: "https://compassionandchoices.org/in-your-state/new-mexico/" }
+    ]
+  },
+  DE: {
+    status: "legal",
+    name: "Delaware",
+    law: "Ron Silverio/Heather Block End of Life Options Act (HB 140)",
+    effective: "January 1, 2026",
+    waitingPeriod: "15 days between oral requests",
+    prognosis: "6 months or less",
+    minAge: 18,
+    residency: "Yes — must be a Delaware resident",
+    prescribers: "Attending + consulting MD or DO",
+    selfAdmin: "Yes — patient self-ingests",
+    annualUse: "Too new for data",
+    notes: "Delaware's law became effective January 1, 2026. Utilization data is not yet available.",
+    resources: [
+      { name: "Death with Dignity National Center — Delaware", url: "https://deathwithdignity.org/states/delaware/" }
+    ]
+  },
+  NY: {
+    status: "pending",
+    name: "New York",
+    law: "Medical Aid in Dying Act (S.138/A.136)",
+    signedDate: "February 6, 2026",
+    effectiveDate: "August 5, 2026",
+    waitingPeriod: "15 days between oral requests",
+    prognosis: "6 months or less",
+    minAge: 18,
+    residency: "Yes — must be a New York resident",
+    prescribers: "Attending + consulting MD or DO",
+    selfAdmin: "Yes — patient self-ingests",
+    pendingNotes: "New York's law was signed February 6, 2026 and takes effect August 5, 2026. It includes a notable additional requirement: a mental health professional evaluation is required for all patients — not only those with questionable capacity, as in other states. Initial evaluation must be conducted in person. The law requires 2 adult witnesses for written requests.",
+    resources: [
+      { name: "Compassion & Choices — New York", url: "https://compassionandchoices.org/in-your-state/new-york/" },
+      { name: "Death with Dignity National Center — New York", url: "https://deathwithdignity.org/states/new-york/" }
+    ]
+  },
+  IL: {
+    status: "pending",
+    name: "Illinois",
+    law: "End-of-Life Options for Terminally Ill Patients Act (SB 1950)",
+    signedDate: "December 12, 2025",
+    effectiveDate: "September 12, 2026",
+    waitingPeriod: "5 days between oral requests (shorter than most states)",
+    prognosis: "6 months or less",
+    minAge: 18,
+    residency: "No residency requirement stated in current text",
+    prescribers: "Attending + consulting MD or DO; self-ingestion required",
+    selfAdmin: "Yes — patient self-ingests",
+    pendingNotes: "Illinois's law takes effect September 12, 2026. It has the second-shortest waiting period of any state (5 days, after California's 48 hours). Coercing someone to request MAID is a felony under the new law.",
+    resources: [
+      { name: "Compassion & Choices — Illinois", url: "https://compassionandchoices.org/resource/illinois-end-of-life-options-for-terminal-adult-patients-act/" }
+    ]
+  },
+  MA: { status: "pending_leg", name: "Massachusetts", bill: "H2505/S1486 — End of Life Options Act", notes: "Massachusetts has active legislation in the 2025–2026 session. As of April 2026, the bill has not passed." },
+  MN: { status: "pending_leg", name: "Minnesota", bill: "Active legislation in 2025–2026 session", notes: "Minnesota has active MAID legislation. As of April 2026, the bill has not passed." },
+  CT: { status: "pending_leg", name: "Connecticut", bill: "Active legislation in 2025–2026 session", notes: "Connecticut has active MAID legislation. As of April 2026, the bill has not passed." },
+  IN: { status: "pending_leg", name: "Indiana", bill: "HB1011 — Active in 2025–2026 session", notes: "Indiana has active MAID legislation. As of April 2026, the bill has not passed." },
+  MO: { status: "pending_leg", name: "Missouri", bill: "HB453 — Marilyn Teitelbaum Death with Dignity Act", notes: "Missouri has active MAID legislation. As of April 2026, the bill has not passed." },
+  MI: { status: "pending_leg", name: "Michigan", bill: "Active legislation in 2025–2026 session", notes: "Michigan has active MAID legislation. As of April 2026, the bill has not passed." },
+};
+
+// All remaining states → not legal
+const NOT_LEGAL_STATES = new Set(["AL","AK","AZ","AR","FL","GA","ID","IA","KS","KY","LA","MD","MS","NE","NV","NH","NC","ND","OH","OK","PA","RI","SC","SD","TN","TX","UT","VA","WV","WI","WY"]);
+
+function showState(code) {
+  const el = document.getElementById('state-result');
+  if (!code || code === 'OR_NO') {
+    el.className = 'hidden';
+    el.innerHTML = '';
+    return;
+  }
+
+  let html = '';
+  const d = STATE_DATA[code];
+
+  if (d && d.status === 'legal') {
+    const isColorado = d.isColorado;
+    html = `
+      <div style="background:#f0fdf4;border:1.5px solid #86efac;border-radius:16px;padding:24px;margin-bottom:24px;">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+          <span class="material-symbols-outlined" style="color:#16a34a;font-size:22px;">check_circle</span>
+          <div>
+            <p style="font-size:17px;font-weight:700;color:#14532d;margin:0;">${d.name} — MAID is Legal</p>
+            <p style="font-size:12px;color:#166534;margin:0;">${d.law}</p>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">
+          <div style="background:#fff;border-radius:10px;padding:12px;">
+            <p style="font-size:11px;font-weight:600;color:#73796e;text-transform:uppercase;letter-spacing:0.05em;margin:0 0 4px;">Waiting Period</p>
+            <p style="font-size:13px;color:#1c1b1b;margin:0;line-height:1.5;">${d.waitingPeriod}</p>
+          </div>
+          <div style="background:#fff;border-radius:10px;padding:12px;">
+            <p style="font-size:11px;font-weight:600;color:#73796e;text-transform:uppercase;letter-spacing:0.05em;margin:0 0 4px;">Prognosis Required</p>
+            <p style="font-size:13px;color:#1c1b1b;margin:0;">${d.prognosis}</p>
+          </div>
+          <div style="background:#fff;border-radius:10px;padding:12px;">
+            <p style="font-size:11px;font-weight:600;color:#73796e;text-transform:uppercase;letter-spacing:0.05em;margin:0 0 4px;">Residency</p>
+            <p style="font-size:13px;color:#1c1b1b;margin:0;">${d.residency}</p>
+          </div>
+          <div style="background:#fff;border-radius:10px;padding:12px;">
+            <p style="font-size:11px;font-weight:600;color:#73796e;text-transform:uppercase;letter-spacing:0.05em;margin:0 0 4px;">Annual Use</p>
+            <p style="font-size:13px;color:#1c1b1b;margin:0;">${d.annualUse}</p>
+          </div>
+        </div>
+        <div style="background:#fff;border-radius:10px;padding:12px;margin-bottom:12px;">
+          <p style="font-size:11px;font-weight:600;color:#73796e;text-transform:uppercase;letter-spacing:0.05em;margin:0 0 4px;">Who Can Prescribe</p>
+          <p style="font-size:13px;color:#1c1b1b;margin:0;line-height:1.5;">${d.prescribers}</p>
+        </div>
+        ${d.notes ? `<p style="font-size:13px;color:#43483f;line-height:1.6;margin:0 0 16px;">${d.notes}</p>` : ''}
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          ${d.resources.map(r => `<a href="${r.url}" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;gap:8px;font-size:13px;color:#436438;text-decoration:none;font-weight:500;"><span class="material-symbols-outlined" style="font-size:16px;">open_in_new</span>${r.name}</a>`).join('')}
+        </div>
+      </div>
+      ${isColorado ? getColoradoDetail() : ''}
+      <div style="background:#f6f3f2;border-radius:12px;padding:16px 18px;margin-bottom:24px;">
+        <p style="font-size:12px;font-weight:600;color:#1c1b1b;margin:0 0 6px;">Get a referral to a MAID-participating physician</p>
+        <p style="font-size:12px;color:#43483f;line-height:1.6;margin:0 0 12px;">This site does not manage the MAID prescribing process. To find a participating physician, contact Compassion &amp; Choices (Doc2Doc program) or the Academy of Aid-in-Dying Medicine (AADM) member directory.</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <a href="https://compassionandchoices.org/get-help/" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:6px;padding:8px 14px;background:#436438;color:#fff;border-radius:8px;font-size:12px;font-weight:600;text-decoration:none;">Compassion &amp; Choices</a>
+          <a href="https://aadm.org/find-a-provider" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:6px;padding:8px 14px;background:#fff;color:#436438;border:1px solid #436438;border-radius:8px;font-size:12px;font-weight:600;text-decoration:none;">AADM Provider Directory</a>
+        </div>
+      </div>
+      <div style="background:#ffdad6;border-radius:12px;padding:14px 18px;">
+        <p style="font-size:12px;color:#93000a;margin:0;line-height:1.6;"><strong>Disclaimer:</strong> This information is educational only. Whether you or a loved one qualifies for medical aid in dying is a determination only a licensed physician can make after evaluation. Laws change; verify current requirements with the state health department or the resources linked above. Consult a licensed physician and healthcare attorney in your state for personal guidance.</p>
+      </div>
+    `;
+  } else if (d && d.status === 'pending') {
+    html = `
+      <div style="background:#fffbeb;border:1.5px solid #fcd34d;border-radius:16px;padding:24px;margin-bottom:24px;">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+          <span class="material-symbols-outlined" style="color:#d97706;font-size:22px;">schedule</span>
+          <div>
+            <p style="font-size:17px;font-weight:700;color:#92400e;margin:0;">${d.name} — Law Signed, Not Yet Effective</p>
+            <p style="font-size:12px;color:#78350f;margin:0;">${d.law}</p>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">
+          <div style="background:#fff;border-radius:10px;padding:12px;">
+            <p style="font-size:11px;font-weight:600;color:#73796e;text-transform:uppercase;letter-spacing:0.05em;margin:0 0 4px;">Signed Into Law</p>
+            <p style="font-size:13px;color:#1c1b1b;margin:0;">${d.signedDate}</p>
+          </div>
+          <div style="background:#fff;border-radius:10px;padding:12px;">
+            <p style="font-size:11px;font-weight:600;color:#73796e;text-transform:uppercase;letter-spacing:0.05em;margin:0 0 4px;">Effective Date</p>
+            <p style="font-size:13px;color:#1c1b1b;margin:0;">${d.effectiveDate}</p>
+          </div>
+          <div style="background:#fff;border-radius:10px;padding:12px;">
+            <p style="font-size:11px;font-weight:600;color:#73796e;text-transform:uppercase;letter-spacing:0.05em;margin:0 0 4px;">Waiting Period</p>
+            <p style="font-size:13px;color:#1c1b1b;margin:0;">${d.waitingPeriod}</p>
+          </div>
+          <div style="background:#fff;border-radius:10px;padding:12px;">
+            <p style="font-size:11px;font-weight:600;color:#73796e;text-transform:uppercase;letter-spacing:0.05em;margin:0 0 4px;">Residency</p>
+            <p style="font-size:13px;color:#1c1b1b;margin:0;">${d.residency}</p>
+          </div>
+        </div>
+        <p style="font-size:13px;color:#43483f;line-height:1.6;margin:0 0 16px;">${d.pendingNotes}</p>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          ${d.resources.map(r => `<a href="${r.url}" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;gap:8px;font-size:13px;color:#436438;text-decoration:none;font-weight:500;"><span class="material-symbols-outlined" style="font-size:16px;">open_in_new</span>${r.name}</a>`).join('')}
+        </div>
+      </div>
+      <p style="font-size:13px;color:#43483f;line-height:1.6;margin:0 0 20px;">MAID is not yet available in ${d.name}. In the meantime, advance directives — living wills, healthcare proxy designations, and POLST forms — are available to everyone in ${d.name} today.</p>
+      <a href="/advance-directives" style="display:inline-flex;align-items:center;gap:6px;padding:12px 20px;background:#436438;color:#fff;border-radius:10px;font-size:14px;font-weight:600;text-decoration:none;">Start an advance directive <span class="material-symbols-outlined" style="font-size:16px;">arrow_forward</span></a>
+    `;
+  } else if (d && d.status === 'pending_leg') {
+    html = `
+      <div style="background:#f0f9ff;border:1.5px solid #7dd3fc;border-radius:16px;padding:24px;margin-bottom:24px;">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+          <span class="material-symbols-outlined" style="color:#0284c7;font-size:22px;">gavel</span>
+          <p style="font-size:17px;font-weight:700;color:#0c4a6e;margin:0;">${d.name} — Pending Legislation</p>
+        </div>
+        <p style="font-size:14px;font-weight:600;color:#0369a1;margin:0 0 8px;">Active Bill: ${d.bill}</p>
+        <p style="font-size:13px;color:#43483f;line-height:1.6;margin:0 0 16px;">${d.notes}</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <a href="https://deathwithdignity.org/states/" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:#436438;text-decoration:none;"><span class="material-symbols-outlined" style="font-size:14px;">open_in_new</span>Track legislation — Death with Dignity National Center</a>
+        </div>
+      </div>
+      <p style="font-size:13px;color:#43483f;line-height:1.6;margin:0 0 20px;">MAID is not currently legal in ${d.name}. Advance directives — living wills, healthcare proxy designations, and POLST forms — are available in all 50 states today.</p>
+      <a href="/advance-directives" style="display:inline-flex;align-items:center;gap:6px;padding:12px 20px;background:#436438;color:#fff;border-radius:10px;font-size:14px;font-weight:600;text-decoration:none;">Start an advance directive <span class="material-symbols-outlined" style="font-size:16px;">arrow_forward</span></a>
+    `;
+  } else if (NOT_LEGAL_STATES.has(code)) {
+    const stateNames = {AL:"Alabama",AK:"Alaska",AZ:"Arizona",AR:"Arkansas",FL:"Florida",GA:"Georgia",ID:"Idaho",IA:"Iowa",KS:"Kansas",KY:"Kentucky",LA:"Louisiana",MD:"Maryland",MS:"Mississippi",NE:"Nebraska",NV:"Nevada",NH:"New Hampshire",NC:"North Carolina",ND:"North Dakota",OH:"Ohio",OK:"Oklahoma",PA:"Pennsylvania",RI:"Rhode Island",SC:"South Carolina",SD:"South Dakota",TN:"Tennessee",TX:"Texas",UT:"Utah",VA:"Virginia",WV:"West Virginia",WI:"Wisconsin",WY:"Wyoming"};
+    const stateName = stateNames[code] || code;
+    html = `
+      <div style="background:#f6f3f2;border:1.5px solid #c3c8bc;border-radius:16px;padding:24px;margin-bottom:24px;">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+          <span class="material-symbols-outlined" style="color:#73796e;font-size:22px;">info</span>
+          <p style="font-size:17px;font-weight:700;color:#1c1b1b;margin:0;">${stateName} — MAID is Not Legal</p>
+        </div>
+        <p style="font-size:13px;color:#43483f;line-height:1.6;margin:0 0 16px;">Medical aid in dying is not currently authorized in ${stateName}. We provide educational information about what MAID is and how it works in legal states, but cannot provide referrals for MAID services in states where it is not legal.</p>
+        <p style="font-size:13px;color:#43483f;line-height:1.6;margin:0 0 16px;">Some patients in non-legal states explore options in states without residency requirements. Oregon and Vermont have removed their residency requirements, meaning patients who travel there and establish a care relationship with a local provider may access MAID. This involves significant logistics and is not appropriate for all situations. The site provides educational information only; we do not facilitate or coordinate this process.</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;">
+          <a href="/maid-education" style="display:inline-flex;align-items:center;gap:6px;padding:10px 16px;background:#436438;color:#fff;border-radius:8px;font-size:12px;font-weight:600;text-decoration:none;">Learn about MAID</a>
+          <a href="/global-options" style="display:inline-flex;align-items:center;gap:6px;padding:10px 16px;background:#fff;color:#436438;border:1px solid #436438;border-radius:8px;font-size:12px;font-weight:600;text-decoration:none;">International options</a>
+        </div>
+        <p style="font-size:12px;color:#43483f;font-weight:600;margin:0 0 8px;">Palliative care and hospice are available everywhere</p>
+        <p style="font-size:12px;color:#43483f;line-height:1.6;margin:0 0 12px;">Palliative care focuses on comfort and quality of life at any stage of illness. Hospice care is specialized end-of-life palliative care available to patients with a terminal prognosis of 6 months or less. Both are covered by Medicare, Medicaid, and most private insurance in all 50 states.</p>
+        <a href="https://www.nhpco.org/patients-and-caregivers/hospice-care/" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:6px;font-size:12px;color:#436438;text-decoration:none;font-weight:500;"><span class="material-symbols-outlined" style="font-size:14px;">open_in_new</span>National Hospice and Palliative Care Organization — Find care near you</a>
+      </div>
+      <p style="font-size:13px;color:#43483f;line-height:1.6;margin:0 0 20px;">Advance directives — living wills, healthcare proxy designations, and POLST forms — are available in all 50 states.</p>
+      <a href="/advance-directives" style="display:inline-flex;align-items:center;gap:6px;padding:12px 20px;background:#436438;color:#fff;border-radius:10px;font-size:14px;font-weight:600;text-decoration:none;">Start an advance directive <span class="material-symbols-outlined" style="font-size:16px;">arrow_forward</span></a>
+    `;
+  }
+
+  el.innerHTML = html;
+  el.className = 'visible';
+}
+
+function getColoradoDetail() {
+  return `
+    <div style="background:#fff;border:1.5px solid #aad19b;border-radius:16px;padding:24px;margin-bottom:24px;">
+      <p style="font-size:15px;font-weight:700;color:#1c1b1b;margin:0 0 12px;">Colorado Detail: What Changed in August 2024</p>
+      <p style="font-size:13px;color:#43483f;line-height:1.6;margin:0 0 16px;">SB24-068 (effective August 7, 2024) was the first amendment to Colorado's End of Life Options Act since 2016. The key changes:</p>
+      <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:16px;">
+        <div style="display:flex;gap:10px;align-items:flex-start;">
+          <span class="material-symbols-outlined" style="color:#436438;font-size:16px;margin-top:2px;">arrow_right</span>
+          <p style="font-size:13px;color:#43483f;margin:0;line-height:1.5;"><strong>Waiting period reduced from 15 days to 7 days.</strong> A 48-hour emergency waiver is available if the patient's prognosis is fewer than 48 hours.</p>
+        </div>
+        <div style="display:flex;gap:10px;align-items:flex-start;">
+          <span class="material-symbols-outlined" style="color:#436438;font-size:16px;margin-top:2px;">arrow_right</span>
+          <p style="font-size:13px;color:#43483f;margin:0;line-height:1.5;"><strong>APRNs added as eligible attending and consulting providers.</strong> Advanced Practice Registered Nurses can now initiate and participate in MAID evaluations alongside physicians.</p>
+        </div>
+        <div style="display:flex;gap:10px;align-items:flex-start;">
+          <span class="material-symbols-outlined" style="color:#436438;font-size:16px;margin-top:2px;">arrow_right</span>
+          <p style="font-size:13px;color:#43483f;margin:0;line-height:1.5;"><strong>Transfer obligation added.</strong> Providers who decline to participate must disclose this to patients and transfer medical records upon request. They cannot obstruct access.</p>
+        </div>
+        <div style="display:flex;gap:10px;align-items:flex-start;">
+          <span class="material-symbols-outlined" style="color:#436438;font-size:16px;margin-top:2px;">arrow_right</span>
+          <p style="font-size:13px;color:#43483f;margin:0;line-height:1.5;"><strong>Self-administration clarified as ingestion only.</strong> Other routes (injection) are not permitted under the Colorado law.</p>
+        </div>
+      </div>
+      <p style="font-size:13px;color:#43483f;line-height:1.6;margin:0 0 12px;"><strong>2024 utilization data (CDPHE Year 8 Report):</strong> 510 prescriptions written, 313 medications dispensed. Median patient age: 75. 77% covered by Medicare or Medicaid, 23% by private insurance.</p>
+      <p style="font-size:12px;color:#73796e;margin:0;">Colorado Medicaid covers MAID medication costs for eligible patients. Medicare does not cover MAID-related services in most circumstances.</p>
+    </div>
+  `;
+}
+</script>
+
+<!-- Bottom navigation -->
+<nav style="position:fixed;bottom:0;left:0;right:0;background:#fcf9f8;border-top:1px solid #e5e2e1;display:flex;justify-content:space-around;padding:10px 0 16px;z-index:50;">
+  <a href="/" style="display:flex;flex-direction:column;align-items:center;gap:2px;text-decoration:none;color:#43483f;font-size:10px;font-weight:500;">
+    <span class="material-symbols-outlined" style="font-size:22px;">home</span>Home
+  </a>
+  <a href="/maid-state-check" style="display:flex;flex-direction:column;align-items:center;gap:2px;text-decoration:none;color:#436438;font-size:10px;font-weight:500;">
+    <span class="material-symbols-outlined" style="font-size:22px;font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">location_on</span>Your State
+  </a>
+  <a href="/maid-education" style="display:flex;flex-direction:column;align-items:center;gap:2px;text-decoration:none;color:#43483f;font-size:10px;font-weight:500;">
+    <span class="material-symbols-outlined" style="font-size:22px;">school</span>Education
+  </a>
+  <a href="/advance-directives" style="display:flex;flex-direction:column;align-items:center;gap:2px;text-decoration:none;color:#43483f;font-size:10px;font-weight:500;">
+    <span class="material-symbols-outlined" style="font-size:22px;">description</span>Directives
+  </a>
+</nav>
+
+</body>
+</html>
